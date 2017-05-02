@@ -1,0 +1,39 @@
+<table class="ui fixed table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Weight</th>
+      <th>Chest</th>
+      <th>Upper Arm</th>
+      <th>Waist</th>
+      <th>Hips</th>
+    </tr>
+  </thead>
+  <tbody>
+    #{list items:_member.assessments, as:'assessment'}
+      <tr>
+        <td>
+          ${assessment.date}
+        </td>
+        <td>
+          ${assessment.weight}kg
+        </td>
+        <td>        
+          ${assessment.chest}cm
+        </td>
+        <td>
+          ${assessment.upperArm}cm
+        </td>
+        <td>
+          ${assessment.waist}cm
+        </td>
+        <td>
+          ${assessment.hips}cm
+        </td>
+         <td>
+            <a href="/members/${_member.id}/deletesong/${assessment.id}" class="ui tiny red button">Delete Assessment</a>
+          </td>         
+      </tr>
+    #{/list}
+  </tbody>
+</table>

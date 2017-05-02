@@ -3,6 +3,14 @@
 
 #{menu id:"dashboard"/}
 
-<section class="ui segment">
-  #{mainpanel/}
-</section>
+#{list items:members, as:'member'}
+  <section class="ui segment">
+    <h2 class="ui header">
+    ${member.firstname}'s Assessments recorded by ${trainer.firstname}
+    </h2>
+      <p>  </p>
+    <a href="/trainer/${member.id}"> View </a>
+  </section>
+
+#{/list}
+#{addmember /}

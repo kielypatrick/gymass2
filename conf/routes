@@ -6,6 +6,18 @@
 GET     /                                       Start.index
 GET     /dashboard                              Dashboard.index
 GET     /about                                  About.index
+GET		/admin									Admin.index
+GET     /members/{id}                         MemberDB.index
+GET     /trainer/{id}                         MemberCtrl.index
+GET     /members/{id}/deletesong/{songid}     MemberCtrl.deleteSong
+GET    /signup                                  Accounts.signup
+GET    /login                                   Accounts.login
+POST   /register                                Accounts.register
+POST   /authenticate                            Accounts.authenticate
+POST   /authenticate1                           Accounts.authenticate1
+POST    /members/{id}/addassessment             MemberCtrl.addAssessment
+POST    /dashboard/addmember                 Dashboard.addMember
+GET    /logout                                  Accounts.logout
 
 # Ignore favicon requests
 GET     /favicon.ico                            404

@@ -1,0 +1,27 @@
+Assessment(a1):
+  date: 10th Jan 2016
+  weight: 80
+  chest: 98
+  upperArm: 15
+  waist: 75
+  hips: 88
+
+
+Member(m1):
+  firstname: Lisa
+  lastname: Simpson
+  email: marge@simpson.com
+  password: secret
+  assessments:
+  - a1
+
+Trainer(t1):
+  firstname: Homer
+  lastname: Simpson
+  email: homer@simpson.com
+  password: secret
+  members:
+  - m1
+
+
+
