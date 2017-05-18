@@ -5,9 +5,39 @@
 
 
 <section class="ui segment">
-    <h2 class="ui header">
+    <h1 class="ui header">
     ${member.firstname} ${member.lastname}
+    </h1>
+    <h2>
+    <table class="ui fixed table">
+        <thead>
+        <tr>
+            <th>Current BMI:</th>
+            <th><i class="ui red heartbeat icon"></i></th>
+            <th>Ideal Weight</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+            ${BMI}
+            </td>
+            <td>
+            ${BMICategory}
+
+            </td>
+            <td>
+                ${idealBodyWeight}kg
+            </td>
+
+
+        </tr>
+        </tbody>
+    </table>
     </h2>
+
+
 #{listassessments member:member /}
 
 </section>

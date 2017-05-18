@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.List;
 
+import utils.Analytics;
+
 import models.Assessment;
 import models.Trainer;
 import models.Member;
@@ -23,7 +25,11 @@ public class MemberDB extends Controller
         Logger.info("Rendering MemberDB");
         Member member = Accounts.getLoggedInMember();
         List<Assessment> assessments = member.assessments;
-        render("member.html", member, assessments);
+        double BMI = Analytics.calculateBMI(member);
+        String BMICategory = Analytics.determineBMICategory(BMI);
+        double idealBodyWeight = Analytics.idealBodyWeight(member);
+
+        render("member.html", member, assessments, BMI, BMICategory, idealBodyWeight);
     }
 
 

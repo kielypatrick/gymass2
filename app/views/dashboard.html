@@ -6,7 +6,9 @@
 #{list items:members, as:'member'}
   <section class="ui segment">
     <h2 class="ui header">
-    ${member.firstname}'s Assessments recorded by ${trainer.firstname}
+    ${member.firstname}'s Assessments recorded by ${trainer.firstname} <a href="/dashboard/deletemember/${member.id}" class="ui icon button">
+        <i class="icon trash"></i>
+    </a>
     </h2>
       <p>  </p>
     <a href="/trainer/${member.id}"> View </a>
