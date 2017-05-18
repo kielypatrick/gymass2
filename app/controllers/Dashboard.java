@@ -29,7 +29,7 @@ public class Dashboard extends Controller
   }
 
   /**
-   * This method adds a member to the app. All Members are ties to trainers, so logged in trainer must be referenced
+   * This method adds a member to the app. All Members are tied to trainers, so logged in trainer must be referenced
    */
   public static void addMember(String firstname, String lastname, String email, String password, double height, double startingweight, String gender)
   {
@@ -43,7 +43,7 @@ public class Dashboard extends Controller
   }
 
   /**
-   * This method deletes a member from the app. All Members are ties to trainers, so logged in trainer must be referenced
+   * This method deletes a member from the app. All Members are tied to trainers, so logged in trainer must be referenced
    */
   public static void deleteMember (Long id)
 {

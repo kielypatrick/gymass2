@@ -5,15 +5,29 @@ Assessment(a1):
   upperArm: 15
   waist: 75
   hips: 88
+  comment: Work to do!
+
+Assessment(a2):
+  date: 12th Mar 2016
+  weight: 78
+  chest: 90
+  upperArm: 15
+  waist: 68
+  hips: 80
+  comment: Steady Progress, keep it up!
 
 
 Member(m1):
-  firstname: Lisa
+  firstname: Marge
   lastname: Simpson
   email: marge@simpson.com
   password: secret
+  height: 1.65
+  startingweight: 81
+  gender: f
   assessments:
   - a1
+  - a2
 
 Trainer(t1):
   firstname: Homer

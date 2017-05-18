@@ -9,9 +9,11 @@ GET     /about                                  About.index
 GET		/admin									Admin.index
 GET     /members/{id}                         MemberDB.index
 GET     /trainer/{id}                         MemberCtrl.index
-GET     /members/{id}/deletesong/{songid}     MemberCtrl.deleteSong
+GET     /dashboard/deletemember/{id}          Dashboard.deleteMember
+GET     /members/{id}/deleteassessment/{assessmentid}     MemberCtrl.deleteassessment
 GET    /signup                                  Accounts.signup
 GET    /login                                   Accounts.login
+GET     /members/{id}/calculateBMI              MemberDB.calculateBMI
 POST   /register                                Accounts.register
 POST   /authenticate                            Accounts.authenticate
 POST   /authenticate1                           Accounts.authenticate1
