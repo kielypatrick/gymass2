@@ -1,0 +1,9 @@
+#{extends 'main.html' /}
+#{set title:'addGoal' /}
+#{trainermenu id:"addgoal"/}
+
+<form class="ui stacked segment form" action="/trainerdashboard/${member.id}/creategoal" method="POST">
+
+#{addgoall member:member/}
+
+</form>

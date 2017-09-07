@@ -1,8 +1,6 @@
 package models;
 
-/**
- * Created by Patrick on 28/03/2017.
- */
+import play.Logger;
 import play.db.jpa.Model;
 
 import javax.persistence.CascadeType;
@@ -11,32 +9,38 @@ import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
+import static controllers.Accounts.login;
+
 @Entity
 public class Trainer extends Model
 {
-    public String firstname;
-    public String lastname;
-    public String email;
-    public String password;
+  public String email;
+  public String password;
+  public String name;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    public List<Member> members = new ArrayList<Member>();
+  @OneToMany(cascade = CascadeType.ALL)
+  public List<Appointment> appointments = new ArrayList<Appointment>();
 
-    public Trainer(String firstname, String lastname, String email, String password)
-    {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.password = password;
-    }
 
-    public static Trainer findByEmail(String email)
-    {
-        return find("email", email).first();
-    }
+  public Trainer(String email, String password, String name)
+  {
+    this.email = email;
+    this.password = password;
+    this.name = name;
+  }
 
-    public boolean checkPassword(String password)
-    {
-        return this.password.equals(password);
-    }
+  public static Trainer findByEmail(String email)
+  {
+    return find("email", email).first();
+  }
+  public boolean checkPassword(String password)
+  {
+    return this.password.equals(password);
+  }
+
+
+
+
+
+
 }

@@ -1,0 +1,14 @@
+#{extends 'main.html' /}
+#{set title:'bookassessment' /}
+#{menu id:"gymclassdetails"/}
+
+<div class="ui two column grid basic middle aligned segment">
+    <div class="column">
+        <img class="ui image" src="/public/images/about.jpg">
+    </div>
+    <div class="column">
+    #{listtrainers trainers:trainers/}
+
+
+    </div>
+</div>

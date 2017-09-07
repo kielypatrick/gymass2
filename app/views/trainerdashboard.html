@@ -1,0 +1,49 @@
+#{extends 'main.html' /}
+#{set title:'Trainer Dashboard' /}
+#{trainermenu id:"dashboard"/}
+
+<section class="ui segment">
+  <div class="column">
+      <h2>
+          Members
+      </h2>
+    #{listmembers members:members/}
+  </div>
+</section>
+<section class="ui segment">
+
+  <div class="column">
+      <h2>
+          Classes
+      </h2>
+    #{listgymclasses gymclasses:gymclasses/}
+      <a href="/trainerdashboard/creategymclass"><button class="ui blue submit button"> Add Class </button></a>
+  </div>
+
+
+    <section class="ui segment">
+        <div class="column">
+            <h2>
+                Appointments..
+            </h2>
+            <table>
+            <tr>
+            #{list items:trainer.appointments, as:'appointment'}
+                <tr><h3> ${appointment.date}, ${appointment.time}  with ${appointment.member}</h3> </tr>
+                <tr>
+                    ${appointment.status}
+                </tr>
+                <tr>
+                    <a href="/trainerdashboard/editappointment/${appointment.id}">
+                        <button class="ui purple submit button"> Edit </button>
+                    </a>
+                </tr>
+
+                </tr>
+            #{/list}
+            </table>
+
+        </div>
+    </section>
+
+</section>

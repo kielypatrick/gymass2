@@ -1,67 +1,70 @@
 package models;
 
+import play.Logger;
+import play.db.jpa.Blob;
+import play.db.jpa.Model;
+
+import javax.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 
+import static controllers.Accounts.login;
 
-import play.db.jpa.Model;
-import utils.Analytics;
 
 @Entity
 public class Member extends Model
 {
-    public String firstname;
-    public String lastname;
-    public String email;
-    public String password;
-    public double height;
-    public double startingweight;
-    public String gender;
+  public String email;
+  public String name;
+  public String password;
+  public String address;
+  public String gender;
+  public double height;
+  public double startingweight;
+  public Blob image;
+
+  @OneToMany(cascade = CascadeType.ALL)
+  public List<Assessment> assessments = new ArrayList<Assessment>();
+
+  @OneToOne(cascade = CascadeType.ALL)
+  public Appointment appointment;
+
+  @OneToMany(cascade = CascadeType.ALL)
+  public List<Goal> goals = new ArrayList<Goal>();
 
 
 
+  @ManyToMany
+  public List<Session> sessions;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    public List<Assessment> assessments = new ArrayList<Assessment>();
-  
-  public Member(String firstname, String lastname, String email, String password, double height, double startingweight, String gender)
+  public Member(String email, String name, String password, String address, String gender, double height, double startingweight)
   {
-	  this.firstname = firstname;
-	  this.lastname = lastname;
-	  this.email = email;
-	  this.password = password;
-	  this.height = height;
-	  this.startingweight = startingweight;
-	  this.gender = gender;
-
+    this.email = email;
+    this.name = name;
+    this.password = password;
+    this.address = address;
+    this.gender = gender;
+    this.height = height;
+    this.startingweight = startingweight;
   }
 
-    public double getHeight() {
-        return height;
-    }
+  public static Member findByEmail(String email)
+  {
+    return find("email", email).first();
+  }
 
-    public double getStartingweight(){
-        return startingweight;
-    }
-
-    public  String getMemberGender() { return gender; }
-
-
-    public static Member findByEmail(String email)
-    {
-        return find("email", email).first();
-    }
-
-    public boolean checkPassword(String password)
-    {
-        return this.password.equals(password);
-    }
+  public boolean checkPassword(String password)
+  {
+    return this.password.equals(password);
+  }
 
 
 
+  public void addSession(Session session, Member member) {
+    sessions.add(session);
+    Logger.info("Adding " + member.name + " to " + session.name);
+  }
 
 
 }

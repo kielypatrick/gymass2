@@ -1,0 +1,10 @@
+<table class="ui celled table">
+  <thead>
+    #{assessment-header /}
+  </thead>
+  <tbody>
+    #{list items:_assessments, as:'assessment'}
+      #{assessment-row-with-delete assessment:assessment, member:_member/}
+    #{/list}
+  </tbody>
+</table>

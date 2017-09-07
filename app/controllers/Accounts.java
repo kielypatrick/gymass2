@@ -1,90 +1,111 @@
 package controllers;
 
-/**
- * Created by Patrick on 28/03/2017.
- */
 import models.Member;
 import models.Trainer;
 import play.Logger;
+import play.db.jpa.Blob;
 import play.mvc.Controller;
+
+import java.text.ParseException;
 
 public class Accounts extends Controller
 {
-    public static void signup()
-    {
-        render("signup.html");
+  public static void index()
+  {
+    render("about.html");
+  }
+
+  public static void signup()
+  {
+    render("signup.html");
+  }
+
+  public static void login()
+  {
+    render("login.html");
+  }
+
+  public static void settings()
+  {
+    Member member = getLoggedInMember();
+    render("settings.html", member);
+  }
+
+  public static void updateSettings(Member member, Blob image)
+  {
+    Member loggedInMember = getLoggedInMember();
+
+    loggedInMember.email = member.email;
+    loggedInMember.name = member.name;
+    loggedInMember.password = member.password;
+    loggedInMember.address = member.address;
+    loggedInMember.gender = member.gender;
+    loggedInMember.height = member.height;
+    loggedInMember.startingweight = member.startingweight;
+    loggedInMember.image = image;
+
+    loggedInMember.save();
+    Logger.info("Updating " + loggedInMember.name + " with " + loggedInMember.image);
+    redirect("/settings");
+  }
+
+
+  public static void logout()
+  {
+    session.clear();
+    index();
+  }
+
+  public static Member getLoggedInMember()
+  {
+    Member member = null;
+    if (session.contains("logged_in_Memberid")) {
+      String memberId = session.get("logged_in_Memberid");
+      member = Member.findById(Long.parseLong(memberId));
+    } else {
+      login();
     }
+    return member;
+  }
 
-    public static void login()
-    {
-        render("login.html");
+  public static Trainer getLoggedInTrainer()
+  {
+    Trainer trainer = null;
+    if (session.contains("logged_in_Trainerid")) {
+      String trainerid = session.get("logged_in_Trainerid");
+      trainer = Trainer.findById(Long.parseLong(trainerid));
+    } else {
+      login();
     }
+    return trainer;
+  }
 
-    public static void register(String firstname, String lastname, String email, String password)
-    {
-        Logger.info("Registering new user " + email);
-        Trainer trainer = new Trainer(firstname, lastname, email, password);
-        trainer.save();
-        redirect("/");
+  public static void register(String email, String name, String password, String address, String gender, double height, double startingweight)
+  {
+    Logger.info(name + " " + email);
+    Member member = new Member(email, name, password, address, gender, height, startingweight);
+    member.save();
+    index();
+  }
+
+  public static void authenticate(String email, String password) throws ParseException {
+    Logger.info("Attempting to authenticate with " + email + ":" + password);
+
+    Member member = Member.findByEmail(email);
+    if ((member != null) && (member.checkPassword(password) == true)) {
+      Logger.info("Authentication successful");
+      session.put("logged_in_Memberid", member.id);
+      Dashboard.index();
+    } else {
+      Trainer trainer = Trainer.findByEmail(email);
+      if ((trainer != null) && (trainer.checkPassword(password) == true)) {
+        Logger.info("Authentication successful");
+        session.put("logged_in_Trainerid", trainer.id);
+        TrainerDashboard.index();
+      } else {
+        Logger.info("Authentication failed");
+        login();
+      }
     }
-
-    public static void authenticate(String email, String password)
-    {
-        Logger.info("Attempting to authenticate with " + email + ":" + password);
-
-        Trainer trainer = Trainer.findByEmail(email);
-        if ((trainer != null) && (trainer.checkPassword(password) == true)) {
-            Logger.info("Authentication successful");
-            session.put("logged_in_Trainerid", trainer.id);
-            redirect ("/dashboard");
-        } else {
-            Logger.info("Authentication failed");
-            redirect("/login");
-        }
-    }
-
-    public static void authenticate1(Long id, String email, String password)
-    {
-        Logger.info("Attempting to authenticate with " + email + ":" + password);
-
-        Member member = Member.findByEmail(email);
-        if ((member != null) && (member.checkPassword(password) == true)) {
-            Logger.info("Authentication successful");
-            session.put("logged_in_Memberid", member.id);
-            redirect ("/members/" + id);
-        } else {
-            Logger.info("Authentication failed");
-            redirect("/login");
-        }
-    }
-
-    public static void logout()
-    {
-        session.clear();
-        redirect ("/");
-    }
-
-    public static Trainer getLoggedInTrainer()
-    {
-        Trainer trainer = null;
-        if (session.contains("logged_in_Trainerid")) {
-            String trainerId = session.get("logged_in_Trainerid");
-            trainer = Trainer.findById(Long.parseLong(trainerId));
-        } else {
-            login();
-        }
-        return trainer;
-    }
-
-    public static Member getLoggedInMember()
-    {
-        Member member = null;
-        if (session.contains("logged_in_Memberid")) {
-            String memberId= session.get("logged_in_Memberid");
-            member = Member.findById(Long.parseLong(memberId));
-        } else {
-            login();
-        }
-        return member;
-    }
+  }
 }
