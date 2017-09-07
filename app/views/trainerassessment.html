@@ -1,0 +1,76 @@
+#{extends 'main.html' /}
+#{set title:'Dashboard' /}
+#{trainermenu id:"dashboard"/}
+
+#{analytics member:member, memberStats:memberStats/}
+<section class="ui segment">
+  #{assessment-table-comment assessments:assessments, member:member/}
+</section>
+
+<section class="ui segment">
+    <div class="column">
+        <h2>
+            Appointment: ${member.name}
+        </h2>
+
+
+        <table>
+        <tr>
+        #{list items:appointments, as:'appointment'}
+            #{if (appointment.member == member.name)}
+            <tr><h3> ${appointment.date}, ${appointment.time}</h3> </tr>
+            <tr>
+
+            ${appointment.status}
+            </tr>
+            <tr>
+                <a href="/trainerdashboard/editappointment/${appointment.id}">
+                    <button class="ui purple submit button"> Edit </button>
+                </a>
+            </tr>
+            #{/if}
+
+        #{/list}
+
+        </table>
+
+    </div>
+</section>
+
+<section class="ui segment">
+    <table>
+        <thead>
+    <h3> Goals </h3>
+        </thead>
+        <tbody>
+            #{if (member.goals.size() == 0)}
+              <p>No Goals set </p>
+
+            #{/if}
+
+            #{list items:member.goals, as:'goal'}
+                <tr>
+
+                    #{if (member.goals.size() >= 1)}
+                        <h3>
+                            <a href="/trainerdashboard/viewgoal/${goal.id}">${goal.name} </a></h3>
+                    #{if (goal.achieved == true)}
+                        <i class="icon large green check square"></i>Achieved
+                    #{/if}
+                        <a href="/trainerdashboard/${member.id}/deletegoal/${goal.id}" class="ui icon button">
+                        <i class="icon red delete calendar"></i>
+                        </a>
+                    #{/if}
+
+            #{/list}
+                </tr>
+
+
+                    <a href="/trainerdashboard/addgoal/${member.id}" >
+                    <button class="ui green submit button"> Create Goal </button>
+                    </a>
+        </tbody>
+    </table>
+
+</section>
+

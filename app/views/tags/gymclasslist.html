@@ -1,0 +1,15 @@
+<div class="ui relaxed divided list">
+#{list items:_gymclasses, as:'gymclass'}
+    <div class="item">
+        <i class="large thumbs outline up middle aligned icon"></i>
+        <div class="content">
+            <div class="header">
+                <a href="/dashboard/gymclassdetails/${gymclass.id}"> ${gymclass.name} </a>
+
+            </div>
+
+        </div>
+    </div>
+#{/list}
+
+</div>

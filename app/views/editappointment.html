@@ -1,0 +1,37 @@
+#{extends 'main.html' /}
+#{set title:'editappointment' /}
+#{trainermenu id:"editappointment"/}
+
+<div class="ui two column grid basic middle aligned segment">
+    <div class="column">
+        <img class="ui image" src="/public/images/about.jpg">
+    </div>
+    <div class="column">
+        <form class="ui stacked segment form" action="/trainerdashboard/appointmentdetails/${appointment.id}" method="POST">
+            <h3 class="ui header">${appointment.member}</h3>
+            <div class="two fields">
+                <div class="field">
+                    <label>Date: ${appointment.date}</label>
+                    <input placeholder="${appointment.date}" type="date" name="appointment1.date" value="${appointment.date}">
+                </div>
+                <div class="field">
+                    <label>Time</label>
+                    <input type="text" type="text" name="appointment1.time" value="${appointment.time}">
+                </div>
+            </div>
+
+                <div class="field">
+                    <label>
+                        <input type="checkbox" name="appointment1.status" value="Trainer Unavailable">Trainer Unavailable</label>
+                    <label>
+                        <input type="checkbox" name="appointment1.status" value="Confirmed"> Confirmed</label>
+
+
+                </div>
+
+                <button class="ui blue submit button">Save</button>
+        </form>
+
+
+    </div>
+</div>

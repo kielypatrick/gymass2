@@ -1,0 +1,14 @@
+<tr>
+  <td> ${_assessment.date.toLocaleString()} </td>
+  <td> ${_assessment.weight}   </td><td> ${_assessment.chest} </td><td> ${_assessment.thigh} </td>
+  <td> ${_assessment.upperarm} </td><td> ${_assessment.waist} </td><td> ${_assessment.hips}  </td>
+  <td>
+    #{if _assessment.trend}
+      <a class="ui teal tag label"></a>
+    #{/if}
+    #{if !_assessment.trend}
+      <a class="ui red tag label"></a>
+    #{/if}
+  </td>
+  <td> ${_assessment.comment} </td>
+</tr>

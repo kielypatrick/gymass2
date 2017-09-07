@@ -1,0 +1,90 @@
+#{extends 'main.html' /}
+#{set title:'gymclassdetails' /}
+#{menu id:"gymclassdetails"/}
+
+<div class="ui two column grid basic middle aligned segment">
+    <div class="column">
+    #{if (gymclass.image != null)}
+        <img class="ui massive image" src="/getimage/${gymclass.id}">
+    #{/if}
+        <img class="ui image" src="/public/images/about.jpg">
+    </div>
+    <div class="column">
+        <h3 class="ui header">${gymclass.name}</h3>
+        <table class="ui table">
+            <thead>
+            <tr>
+                <th>Start Date</th>
+                <th>Time Slot</th>
+                <th>Duration</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>${gymclass.date}</td>
+                <td>${gymclass.timeSlot}</td>
+                <td>${gymclass.duration}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table class="ui table">
+            <thead>
+            <tr>
+                <th>Capacity</th>
+                <th>Difficulty</th>
+                <th>Number of Weeks</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>${gymclass.capacity}</td>
+                <td>${gymclass.difficulty}</td>
+                <td>${gymclass.weeks}</td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="ui table">
+            <thead>
+
+            </thead>
+            <tbody>
+
+                <div class="ui relaxed divided list">
+                #{list items:gymclass.sessions, as:'session'}
+                <div class="item">
+                    <i class="large github middle aligned icon"></i>
+                    <div class="content">
+                        <div class="header">
+                            <tr> ${session.name} </tr>
+                            <tr>
+                            #{if ((session.inFuture) && (session.members.size() < (session.capacity)))}
+
+                                <form action="/dashboard/addsession/${session.id}" method="POST">
+                                <button class="ui green submit button">Enroll</button>
+                                </form>
+
+                            #{/if}
+
+                            </tr>
+
+
+                        </div>
+                </div>
+
+                #{/list}
+                </div>
+                </div>
+
+            </tbody>
+        </table>
+        <form action="/dashboard/addgymclass/${gymclass.id}" method="POST">
+
+            <button class="ui blue submit button">Enroll All</button>
+        </form>
+
+
+
+    </div>
+</div>
+</div>

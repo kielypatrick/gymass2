@@ -1,0 +1,52 @@
+#{extends 'main.html' /}
+#{set title:'addgymclass' /}
+#{menu id:"addgymclass"/}
+
+<form class="ui stacked segment form" action="/trainerdashboard/addgymclass" method="POST" enctype="multipart/form-data">
+    <div>
+        <h3 class="ui header">Class Name</h3>
+
+            <input placeholder="name" type="text" name="name">
+        </div>
+        <div>
+            <div class="field">
+                <label>Start Date</label>
+                <input placeholder="dd/mm/yy" type="date" name="date">
+            </div>
+            <div class="field">
+                <label>End Date</label>
+                <input placeholder="dd/mm/yy" type="date" name="endDate">
+            </div>
+            <div class="field">
+                <label>Time Slot</label>
+                <input placeholder="day,time" type="text" name="timeSlot" >
+            </div>
+        </div>
+        <div class="two fields">
+            <div class="field">
+                <label>Duration</label>
+                <input placeholder="duration" type="text" name="duration" >
+            </div>
+            <div class="field">
+                <label>Capacity</label>
+                <input placeholder="capacity" type="text" name="capacity">
+            </div>
+        </div>
+        <div class="two fields">
+            <div class="field">
+                <label>Difficulty</label>
+                <input placeholder="low, medium, high" type="text" name="difficulty">
+            </div>
+            <div class="field">
+                <label>Number of Weeks</label>
+                <input placeholder="0" type="text" name="weeks">
+            </div>
+            <div class="field">
+                <label>Image</label>
+                <input type="file" name="image">  </input>
+            </div>
+
+        </div>
+    </div>
+    <button class="ui blue submit button"> Add Class </button>
+</form>

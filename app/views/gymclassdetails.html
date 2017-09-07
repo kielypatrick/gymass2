@@ -1,0 +1,93 @@
+#{extends 'main.html' /}
+#{set title:'gymclassdetails' /}
+#{trainermenu id:"gymclassdetails"/}
+
+<div class="ui two column grid basic middle aligned segment">
+    <div class="column">
+    #{if (gymclass.image != null)}
+        <img class="ui massive image" src="/getimage/${gymclass.id}">
+    #{/if}
+        <img class="ui image" src="/public/images/about.jpg">
+
+
+    </div>
+    <div class="column">
+        <form class="ui stacked segment form" action="/trainerdashboard/editgymclass/${gymclass.id}" method="POST">
+            <h3 class="ui header">${gymclass.name}</h3>
+            <div class="three fields">
+                <div class="field">
+                    <label>Start Date: ${gymclass.date}</label>
+                    <input type="date" name="gymclass1.date" value="${gymclass.date}">
+                </div>
+                <div class="field">
+                    <label>End Date: ${gymclass.endDate}</label>
+                    <input type="date" name="gymclass1.endDate" value="${gymclass.endDate}">
+                </div>
+                <div class="field">
+                    <label>Time Slot</label>
+                    <input placeholder="day,time" type="text" type="text" name="gymclass1.timeSlot" value="${gymclass.timeSlot}">
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="field">
+                    <label>Duration</label>
+                    <input  type="text" name="gymclass1.duration" value="${gymclass.duration}">
+                </div>
+                <div class="field">
+                    <label>Capacity</label>
+                    <input type="text" name="gymclass1.capacity" value="${gymclass.capacity}">
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="field">
+                    <label>Difficulty</label>
+                    <input type="text" name="gymclass1.difficulty" value="${gymclass.difficulty}">
+                </div>
+                <div class="field">
+                    <label>Number of Weeks</label>
+                    <input type="text" name="gymclass1.weeks" value="${gymclass.weeks}">
+                </div>
+            </div>
+
+
+
+            <button class="ui blue submit button">Save</button>
+        </form>
+
+        <h2>Sessions</h2>
+
+
+        <div class="ui relaxed divided list">
+        #{list items:gymclass.sessions, as:'session'}
+        <div class="item">
+            <i class="large github middle aligned icon"></i>
+            <div class="content">
+                <div class="header">
+                    <p> Date: ${session.name}  </p>
+                    <p> Spaces remaining: ${session.capacity - session.members.size()}</p>
+                    <a href="/trainerdashboard/${gymclass.id}/deletesession/${session.id}">
+                        <i class="ui large red icon trash"></i>
+                    </a>
+
+
+                </div>
+
+            </div>
+        </div>
+        #{/list}
+
+        </div>
+        <div>
+            <h4>Add session</h4>
+
+            <form class="ui form" action="/trainerdashboard/addSession/${gymclass.id}" method="POST">
+                <div class="ui field">
+                    <input type="date" name="date" value="date" required="required">  </input>
+                </div>
+                <button class="ui blue submit button">Save</button>
+            </form>
+        </div>
+
+
+    </div>
+</div>

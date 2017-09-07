@@ -1,18 +1,119 @@
 #{extends 'main.html' /}
 #{set title:'Dashboard' /}
-
 #{menu id:"dashboard"/}
 
-#{list items:members, as:'member'}
-  <section class="ui segment">
-    <h2 class="ui header">
-    ${member.firstname}'s Assessments recorded by ${trainer.firstname} <a href="/dashboard/deletemember/${member.id}" class="ui icon button">
-        <i class="icon trash"></i>
-    </a>
-    </h2>
-      <p>  </p>
-    <a href="/trainer/${member.id}"> View </a>
-  </section>
 
-#{/list}
-#{addmember /}
+#{if member.goals.size() == 0}
+<p>  <a href="/dashboard/addgoal" >
+    <button class="ui green submit button"> No Goals set. No time like the present!! </button>
+</a></p>
+#{/if}
+
+
+
+<section class="ui segment">
+#{analytics member:member, memberStats:memberStats/}
+  #{addassessment/}
+  #{assessment-table assessments:assessments, member:member/}
+    <a href="/dashboard/bookassessment/${member.id}" >
+        <button class="ui purple submit button"> Book Assessment </button>
+    </a>
+
+</section>
+
+<section class="ui segment">
+    <div class="column">
+        <h2>
+            My Classes
+        </h2>
+        <table>
+            <tr>
+            #{list items:member.sessions, as:'session'}
+                <tr><h3> ${session.gymClassName}, ${session.timeSlot}: </h3> </tr>
+
+                <tr> ${session.name}
+                    <a href="/dashboard/${member.id}/quitclass/${session.id}" class="ui icon button">
+                     <i class="icon red delete calendar"></i>
+                    </a>
+                </tr>
+            </tr>
+            #{/list}
+        </table>
+
+    </div>
+</section>
+
+<section class="ui segment">
+    <div class="column">
+        <h2>
+            Appointments..
+        </h2>
+        <table>
+            <tr>
+            #{list items:member.appointment, as:'appointment'}
+                <tr><h3> ${appointment.date}, ${appointment.time} with ${appointment.trainer} </h3> </tr>
+                <tr>
+                    <a href="/dashboard/${member.id}/cancelappointment/${appointment.id}" class="ui icon button">
+                        <i class="icon red delete calendar"></i>
+                    </a>
+                    ${appointment.status}
+                </tr>
+
+            #{/list}
+
+        </table>
+
+    </div>
+</section>
+
+<section class="ui segment">
+    <div class="column">
+        <h2>
+            Goals..
+        </h2>
+        <table>
+            <thead>
+
+        #{list items:member.goals, as:'goal'}
+            <tr>
+                <a href="/dashboard/viewgoal/${goal.id}">
+                    <h3> ${goal.name}, ${goal.date} </h3></a>
+                #{if (goal.achieved == true)}
+                    <i class="icon large green check square"></i>Achieved
+                #{/if}
+                #{if ((goal.open == false) && (member.appointment == null)&& (goal.assessed == false))}
+                    <p><a href="/dashboard/bookassessment/${member.id}" >
+                        <button class="ui purple submit button">Time to check your progress </button>
+                    </a></p>
+                #{/if}
+            </tr>
+            <a href="/dashboard/deletegoal/${goal.id}" class="ui icon button">
+                <i class="icon red delete calendar"></i>
+            </a>
+            #{/list}
+            </thead>
+            <tbody>
+                <td>
+
+                <a href="/dashboard/addgoal" >
+                    <button class="ui green submit button"> Create Goal </button>
+                </a>
+                </td>
+
+
+            </tbody>
+        </table>
+
+    </div>
+</section>
+
+
+<section class="ui segment">
+    <div class="column">
+        <h2>
+            Classes
+        </h2>
+    #{gymclasslist gymclasses:gymclasses/}
+
+    </div>
+</section>
